@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../stylee.css" />
+    <title>Quiz Sustentável</title>
+  </head>
+  <body>
+    <!-- Botão de abrir sidebar -->
+    <button id="openSidebar" class="sidebar-toggle">☰</button>
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+      <ul>
+        <li><a href="#" onclick="logout()">Encerrar Sessão</a></li>
+        <li><a href="#">Placar</a></li>
+      </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <div class="conteinerr">
+      <h1>Quiz Sustentável</h1>
+
+      <div class="quiz">
+        <h2 id="question">Question goes here</h2>
+        <div id="answer-buttons">
+          <button class="btn">Answer 1</button>
+          <button class="btn">Answer 2</button>
+          <button class="btn">Answer 3</button>
+          <button class="btn">Answer 4</button>
+        </div>
+        <button id="next-btn">Próxima</button>
+      </div>
+    </div>
+    <script>
+      if (!sessionStorage.getItem("usuarioLogado")) {
+        window.location.href = "/index.html";
+      }
+
+      function logout() {
+        sessionStorage.clear();
+        window.location.href = "/index.html";
+      }
+
+      const sidebar = document.getElementById("sidebar");
+      const openBtn = document.getElementById("openSidebar");
+
+      openBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+
+      window.addEventListener("click", function (event) {
+        if (
+          !sidebar.contains(event.target) &&
+          !openBtn.contains(event.target)
+        ) {
+          sidebar.classList.remove("active");
+        }
+      });
+    </script>
+
+    <script src="../quizController.js"></script>
+  </body>
+</html>

@@ -1,17 +1,13 @@
-const form = document.querySelector("form");
-
-form.addEventListener("submit", async (e) => {
+document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = form.email.value.trim();
-  const senha = form.senha.value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const senha = document.querySelector('input[name="senha"]').value.trim();
 
   try {
-    const resposta = await fetch("http://localhost:3000/auth/login", {
+    const resposta = await fetch("/auth/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, senha }),
     });
 
@@ -22,17 +18,13 @@ form.addEventListener("submit", async (e) => {
       return;
     }
 
-    // Salva token e usuário no sessionStorage
     sessionStorage.setItem("token", dados.token);
     sessionStorage.setItem(
       "usuarioLogado",
       JSON.stringify(dados.usuario || {})
     );
-
-    // Redireciona para a home do quiz
     window.location.href = "areaQuiz/home.html";
   } catch (erro) {
-    console.error("Erro ao fazer login:", erro);
     alert("Erro de conexão com o servidor.");
   }
 });

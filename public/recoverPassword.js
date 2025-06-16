@@ -1,18 +1,16 @@
 document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const nome = document.querySelector('input[name="nome"]').value.trim();
   const email = document.querySelector('input[name="email"]').value.trim();
-  const senha = document.querySelector('input[name="senha"]').value.trim();
-  const telefone = document
-    .querySelector('input[name="telefone"]')
+  const novaSenha = document
+    .querySelector('input[name="novaSenha"]')
     .value.trim();
 
   try {
-    const res = await fetch("/auth/register", {
-      method: "POST",
+    const res = await fetch("http://localhost:3000/auth/trocar-senha", {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, email, senha, telefone }),
+      body: JSON.stringify({ email, novaSenha }),
     });
 
     const data = await res.json();
